@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 
 HOST_NAME: "bankapp.internal.com"
 
@@ -17,9 +17,12 @@ SERVICE_URL_CASH: cash:8080
 SERVICE_URL_TRANSFER: transfer:8080
 SERVICE_URL_EXCHANGE: exchange:8080
 
+REDIS_HOST: redis
+REDIS_PORT: 6379
+
 image:
   repository: mcat1980/bank-front
-  tag: "12.0"
+  tag: "13.0"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

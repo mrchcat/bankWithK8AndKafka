@@ -18,4 +18,7 @@ data:
   SERVICE_URL_EXCHANGE: {{ .Values.SERVICE_URL_EXCHANGE }}
   SERVICE_URL_FRONT: {{ .Release.Namespace }}.{{ .Values.HOST_NAME }}
 
+  REDIS_HOST: {{ .Values.REDIS_HOST }}
+  REDIS_PORT: "{{ .Values.REDIS_PORT }}"
+
 immutable: true

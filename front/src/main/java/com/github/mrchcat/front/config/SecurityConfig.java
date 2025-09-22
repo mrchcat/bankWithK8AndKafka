@@ -7,6 +7,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.client.RestClient;
@@ -37,10 +39,11 @@ public class SecurityConfig {
                 )
                 .logout(cst -> cst
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID"))
+                        .deleteCookies("JSESSIONID", "SESSIONID"))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                         .maximumSessions(maximumSessions)
+                        .sessionRegistry(sessionRegistry())
                 );
         return http.build();
     }
@@ -55,5 +58,10 @@ public class SecurityConfig {
     @Bean
     RestClient.Builder restClientBuilder() {
         return RestClient.builder();
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
 }
